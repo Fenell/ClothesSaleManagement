@@ -17,8 +17,8 @@ namespace ClothesSaleManagement.Infrastructure.Configuration
 			builder.HasKey(a=>a.Id);
 			builder.Property(a => a.Quantity).HasDefaultValue(1);
 
-			builder.HasOne<Product>(a=>a.Product)
-				.WithMany(c=>c.CartDetails).HasForeignKey(a=>a.ProductId);
+			builder.HasOne<ProductDetail>(c => c.ProductDetail).WithMany(a => a.CartDetails)
+				.HasForeignKey(a => a.ProductDetailId);
 
 			builder.HasOne<Cart>(a => a.Cart)
 				.WithMany(c => c.CartDetails).HasForeignKey(a => a.CartId);

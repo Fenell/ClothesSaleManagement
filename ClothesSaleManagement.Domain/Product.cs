@@ -14,10 +14,8 @@ namespace ClothesSaleManagement.Domain
 		public string Name { get; set; } = string.Empty;
 		public decimal Price { get; set; }
 		public decimal CostPrice { get; set; }
-		public int AvailableQuantity { get; set; }
 		public string Description { get; set; } = string.Empty;
 		public DateTime CreatedDate { get; set; }
-		public DateTime ModifiedDate { get; set; }
 		public string ImageUrl { get; set; } = string.Empty;
 		public Status Status { get; set; }
 
@@ -25,11 +23,8 @@ namespace ClothesSaleManagement.Domain
 		public Guid CategoryId { get; set; }
 		public virtual Category? Category { get; set; }
 
-		public Guid SizeId { get; set; }
-		public virtual Size? Size { get; set; }
+		public virtual IEnumerable<ProductDetail>? ProductDetails { get; set; }
 
-		public IEnumerable<BillDetail>? BillDetails { get; set; }
-
-		public IEnumerable<CartDetail>? CartDetails{ get; set; }
+	
 	}
 }

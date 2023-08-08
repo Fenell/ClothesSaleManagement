@@ -22,9 +22,8 @@ namespace ClothesSaleManagement.Infrastructure.Configuration
 			builder.HasOne<Bill>(a=>a.Bil)
 				.WithMany(c=>c.BillDetails).HasForeignKey(a => a.BillId);
 
-			builder.HasOne<Product>(a => a.Product)
-				.WithMany(c => c.BillDetails).HasForeignKey(a => a.ProductId);
-
+			builder.HasOne<ProductDetail>(c => c.ProductDetail).WithMany(a => a.BillDetails)
+				.HasForeignKey(c => c.ProductDetailId);
 
 			//Seeding data
 			builder.HasData(
@@ -32,7 +31,7 @@ namespace ClothesSaleManagement.Infrastructure.Configuration
 				{
 					Id = new Guid("b8d733f0-6745-4be3-9072-39c4a52c803f"),
 					BillId = new Guid("cc0b414e-9eab-4527-b3fb-6efba68748ff"),
-					ProductId = new Guid("c1abc698-7149-49e2-b67f-e50f09d8e0c0"),
+					ProductDetailId = new Guid("25e52937-d44f-4d2f-bc7f-67cbc6efd064"),
 					Quantity = 1,
 					Price = 20000,
 					TotalMoney = 20000
@@ -41,7 +40,7 @@ namespace ClothesSaleManagement.Infrastructure.Configuration
 				{
 					Id = new Guid("18f91fdb-39d3-4fcc-b8ca-896ef777d840"),
 					BillId = new Guid("fe382f6d-a7fc-4f6e-9843-239f0d6284bf"),
-					ProductId = new Guid("ed884572-cdeb-46ad-a2b2-12297e9fd32a"),
+					ProductDetailId = new Guid("122a5c7d-33f9-461d-8451-06e325e852f6"),
 					Quantity = 2,
 					Price = 25000,
 					TotalMoney = 50000
@@ -50,7 +49,7 @@ namespace ClothesSaleManagement.Infrastructure.Configuration
 				{
 					Id = new Guid("374bf0a6-039f-42a9-b232-e4c90998b4c2"),
 					BillId = Guid.Parse("fe382f6d-a7fc-4f6e-9843-239f0d6284bf"),
-					ProductId = new Guid("ed884572-cdeb-46ad-a2b2-12297e9fd32a"),
+					ProductDetailId = new Guid("056ac6f7-c203-4fcd-9727-6d702c2be6a5"),
 					Quantity = 5,
 					Price = 10000,
 					TotalMoney = 50000
@@ -59,7 +58,7 @@ namespace ClothesSaleManagement.Infrastructure.Configuration
 				{
 					Id = new Guid("574ee723-685c-4bfa-8235-44d085434b74"),
 					BillId = new Guid("b2262bf3-7a66-465f-88ca-230c757e6287"),
-					ProductId = new Guid("66bdf5a9-58b0-42b8-8508-c95e2518582a"),
+					ProductDetailId = new Guid("122a5c7d-33f9-461d-8451-06e325e852f6"),
 					Quantity = 2,
 					Price = 100000,
 					TotalMoney = 200000

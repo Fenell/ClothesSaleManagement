@@ -13,8 +13,8 @@ namespace ClothesSaleManagement.Domain
 
 		//Relationship
 		public Guid CartId { get; set; }
-		public Guid ProductId { get; set; }
-		public Product? Product { get; set; }
+		public Guid ProductDetailId { get; set; }
+		public ProductDetail? ProductDetail { get; set; }
 		public Cart? Cart{ get; set; }
 	}
 }

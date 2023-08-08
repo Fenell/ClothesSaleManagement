@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClothesSaleManagement.Infrastructure.Implementations
 {
-	public class GenericRepository<T>: IGenericRepository<T> where T : class
+	public class GenericRepository<T> : IGenericRepository<T> where T : class
 	{
 		private readonly ClothesSaleManagementContext _context;
 
@@ -23,10 +23,10 @@ namespace ClothesSaleManagement.Infrastructure.Implementations
 			return entity;
 		}
 
-		public async Task<T> UpdateAsync(T entity)
+		public async Task UpdateAsync(T entity)
 		{
-			_context.Set<T>().Update(entity);
-			return entity;
+			_context.Set<T>().Attach(entity);
+			_context.Entry(entity).State = EntityState.Modified;
 		}
 
 		public async Task DeleteAsync(T entity)
@@ -35,9 +35,9 @@ namespace ClothesSaleManagement.Infrastructure.Implementations
 
 		}
 
-		public async Task<IEnumerable<T>> GetAllAsync()
+		public async Task<IQueryable<T>> GetAllAsync()
 		{
-			return await _context.Set<T>().ToListAsync();
+			return  _context.Set<T>();
 		}
 
 		public async Task<T> GetByIdAsync(dynamic id)
@@ -49,6 +49,31 @@ namespace ClothesSaleManagement.Infrastructure.Implementations
 		{
 			var entity = await GetByIdAsync(id);
 			return entity != null;
+		}
+
+		public async Task<bool> AddRangeAsync(IEnumerable<T> entities)
+		{
+			try
+			{
+				await _context.Set<T>().AddRangeAsync(entities);
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
+		}
+
+		public async Task UpdateRangeAsync(IEnumerable<T> entities)
+		{
+			try
+			{
+				_context.UpdateRange(entities);
+			}
+			catch (Exception e)
+			{
+				var eMessage = e.Message;
+			}
 		}
 	}
 }

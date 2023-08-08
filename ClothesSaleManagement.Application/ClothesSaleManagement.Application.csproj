@@ -7,16 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Size\**" />
+    <EmbeddedResource Remove="Features\Size\**" />
+    <None Remove="Features\Size\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ClothesSaleManagement.Domain\ClothesSaleManagement.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="MediatR" Version="12.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Product\Handlers\" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
 
 </Project>

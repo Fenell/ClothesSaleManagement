@@ -1,0 +1,170 @@
+﻿@using ClothesSaleManagement.WebApp.Models
+@model OrderVM
+@inject IConfiguration Configuration
+
+@{
+	decimal total = 0;
+}
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+	<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+		<h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ hàng</h1>
+		<div class="d-inline-flex">
+			<p class="m-0"><a asp-controller="Home" asp-action="Index">Trang chủ</a></p>
+			<p class="m-0 px-2">-</p>
+			<p class="m-0">Giỏ Hàng</p>
+		</div>
+	</div>
+</div>
+<!-- Page Header End -->
+<!-- Cart Start -->
+@if (TempData["message"] != null)
+{
+	<span class="alert alert-success">@TempData["message"]</span>
+}
+<div class="container-fluid pt-5">
+	<div class="row px-xl-5">
+		<div class="col-lg-8 table-responsive mb-5">
+			<table class="table table-bordered text-center mb-0">
+				<thead class="bg-secondary text-dark">
+					<tr>
+						<th>Sản phẩm</th>
+						<th>Size</th>
+						<th>Giá</th>
+						<th>Số lượng</th>
+						<th>Thành tiền</th>
+						<th>Xóa</th>
+					</tr>
+				</thead>
+				<tbody class="align-middle">
+
+					@if (ViewBag.lstCartItems != null)
+					{
+						foreach (CartItem item in ViewBag.lstCartItems)
+						{
+							<tr>
+								<td class="align-middle">
+									<img src="@(Configuration["BaseAddress"] + @item.ImgUrl)" alt="" style="width: 50px;"> @item.Name
+								</td>
+								<td class="align-middle">@item.Size</td>
+								<td class="align-middle">@item.Price.ToString("N0")</td>
+								<td class="align-middle">
+									<div class="input-group quantity mx-auto" style="width: 100px;">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-primary btn-minus">
+												<i class="fa fa-minus"></i>
+											</button>
+										</div>
+										<input type="text" class="form-control form-control-sm bg-secondary text-center" value="@item.Quantity">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-primary btn-plus">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</div>
+								</td>
+								<td class="align-middle">@item.TotalMoney.ToString("N0")</td>
+								<td class="align-middle">
+									<a class="btn btn-sm btn-primary" id="removecart" asp-action="RemoveCartItem" asp-route-id="@item.ProductDetailId"><i class="fa fa-times"></i></a>
+								</td>
+							</tr>
+						}
+					}
+
+				</tbody>
+			</table>
+			<form asp-action="Index" method="post">
+				<div class="mb-4 mt-5">
+					<h4 class="font-weight-semi-bold mb-4">Địa chỉ thanh toán</h4>
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<label>Họ tên(*)</label>
+							<input class="form-control" type="text" placeholder="John" asp-for="CustomerName">
+							<span asp-validation-for="CustomerName" class="text-danger"></span>
+
+						</div>
+						<div class="col-md-6 form-group">
+							<label>Địa chỉ(*)</label>
+							<input class="form-control" type="text" placeholder="Doe">
+						</div>
+						<div class="col-md-6 form-group">
+							<label>E-mail</label>
+							<input class="form-control" type="text" placeholder="example@email.com">
+						</div>
+						<div class="col-md-6 form-group">
+							<label>Số điện thoại(*)</label>
+							<input class="form-control" type="text" placeholder="+123 456 789" asp-for="PhoneNumber">
+							<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="card border-secondary mb-5">
+					<div class="card-footer border-secondary bg-transparent">
+						<button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" asp-action="Index">Đặt Hàng</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-4">
+			<div class="mb-5">
+				<div class="input-group">
+					<input type="text" class="form-control p-4" placeholder="Coupon Code">
+					<div class="input-group-append">
+						<button class="btn btn-primary">Apply Coupon</button>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="card border-secondary mb-5">
+					<div class="card-header bg-secondary border-0">
+						<h4 class="font-weight-semi-bold m-0">Chi tiết thanh toán</h4>
+					</div>
+					<div class="card-body">
+						<h5 class="font-weight-medium mb-3">Sản phẩm</h5>
+						@if (ViewBag.lstCartItems != null)
+						{
+							foreach (CartItem item in ViewBag.lstCartItems)
+							{
+								<div class="d-flex justify-content-between">
+									<p>@item.Name</p>
+									<p>@((item.Price * item.Quantity).ToString("N0"))</p>
+								</div>
+								total += (item.Price * item.Quantity);
+							}
+						}
+
+						<hr class="mt-0">
+						<div class="d-flex justify-content-between mb-3 pt-1">
+							<h6 class="font-weight-medium">Tiền hàng</h6>
+							<h6 class="font-weight-medium">@total.ToString("N0")</h6>
+						</div>
+						<div class="d-flex justify-content-between">
+							<h6 class="font-weight-medium">Phí ship</h6>
+							<h6 class="font-weight-medium">0</h6>
+						</div>
+					</div>
+					<div class="card-footer border-secondary bg-transparent">
+						<div class="d-flex justify-content-between mt-2">
+							<h5 class="font-weight-bold">Tổng tiền</h5>
+							<h5 class="font-weight-bold">@total.ToString("N0")</h5>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Cart End -->
+@section Scripts
+	{
+	<script type="text/javascript">
+
+		$('#removecart').click(function (e) {
+			e.preventDefault(); // This will stop default behavior
+			var id = $('#removecart').val();
+			console.log(id);
+		}
+	</script>
+}

@@ -14,9 +14,9 @@ namespace ClothesSaleManagement.Domain
 		public decimal TotalMoney { get; set; }
 
 		//Relationship
-		public Guid ProductId { get; set; }
+		public Guid ProductDetailId { get; set; }
 		public Guid BillId { get; set; }
-		public Product? Product { get; set; }
+		public ProductDetail? ProductDetail { get; set; }
 		public Bill? Bil{ get; set; }
 	}
 }

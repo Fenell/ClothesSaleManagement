@@ -1,0 +1,30 @@
+﻿@model List<ClothesSaleManagement.Application.DTOs.BillDetail.BillDetailDto>
+
+@{
+	int count = 0;
+}
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">STT</th>
+			<th scope="col">Sản phẩm</th>
+			<th scope="col">Size</th>
+			<th scope="col">Số lượng</th>
+			<th scope="col">Giá</th>
+			<th scope="col">Thành tiền</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<th scope="row">@(count++)</th>
+				<td>@item.NameProduct</td>
+				<td>@item.Size</td>
+				<td>@item.Quantity</td>
+				<td>@item.Price.ToString("N0")</td>
+				<td>@item.TotalMoney.ToString("N0")</td>
+			</tr>
+		}
+	</tbody>
+</table>

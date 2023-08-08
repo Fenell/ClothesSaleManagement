@@ -6,11 +6,14 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using ClothesSaleManagement.Domain;
+using ClothesSaleManagement.Infrastructure.Identity.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClothesSaleManagement.Infrastructure
 {
-	public class ClothesSaleManagementContext:DbContext
+	public class ClothesSaleManagementContext:IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 	{
 		public ClothesSaleManagementContext(DbContextOptions options) : base(options)
 		{
@@ -19,6 +22,7 @@ namespace ClothesSaleManagement.Infrastructure
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+			base.OnModelCreating(modelBuilder);
 		}
 
 		public DbSet<Bill> Bills { get; set; }
@@ -27,6 +31,6 @@ namespace ClothesSaleManagement.Infrastructure
 		public DbSet<CartDetail> CartDetails { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Product> Products { get; set; }
-		public DbSet<Size> Sizes { get; set; }
+		public DbSet<ProductDetail> ProductDetails { get; set; }
 	}
 }

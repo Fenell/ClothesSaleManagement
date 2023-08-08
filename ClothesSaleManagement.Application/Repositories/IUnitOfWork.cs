@@ -14,7 +14,7 @@ namespace ClothesSaleManagement.Application.Repositories
 		ICartDetailRepository CartDetailRepository { get; }
 		ICategoryRepository CategoryRepository { get; }
 		IProductRepository ProductRepository { get; }
-		ISizeRepository SizeRepository { get; }
+		IProductDetailRepository ProductDetailRepository { get; }
 
 		Task Save();
 	}

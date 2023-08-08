@@ -20,7 +20,7 @@ namespace ClothesSaleManagement.Infrastructure.Implementations
 			CartDetailRepository = new CartDetailRepository(_context);
 			CategoryRepository = new CategoryRepository(_context);
 			ProductRepository = new ProductRepository(_context);
-			SizeRepository = new SizeRepository(_context);
+			ProductDetailRepository = new ProductDetailRepository(_context);
 		}
 
 		public IBillRepository BillRepository { get; }
@@ -29,11 +29,18 @@ namespace ClothesSaleManagement.Infrastructure.Implementations
 		public ICartDetailRepository CartDetailRepository { get; }
 		public ICategoryRepository CategoryRepository { get; }
 		public IProductRepository ProductRepository { get; }
-		public ISizeRepository SizeRepository { get; }
+		public IProductDetailRepository ProductDetailRepository { get; }
 
 		public async Task Save()
 		{
-			await _context.SaveChangesAsync();
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				var exMessage = ex.Message;
+			}
 		}
 
 		public void Dispose()

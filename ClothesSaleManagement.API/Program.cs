@@ -1,3 +1,4 @@
+using ClothesSaleManagement.API.Middleware;
 using ClothesSaleManagement.Application;
 using ClothesSaleManagement.Infrastructure;
 
@@ -12,7 +13,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureInfrastructureService(builder.Configuration);
 builder.Services.ConfigureApplicationService();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +21,9 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

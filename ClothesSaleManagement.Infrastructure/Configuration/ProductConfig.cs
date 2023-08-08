@@ -23,48 +23,39 @@ namespace ClothesSaleManagement.Infrastructure.Configuration
 			builder.HasOne<Category>(a => a.Category)
 				.WithMany(c => c.Products).HasForeignKey(c => c.CategoryId);
 
-			builder.HasOne<Size>(a => a.Size)
-				.WithMany(c => c.Products).HasForeignKey(c => c.SizeId);
-
 			//Seeding data
 			builder.HasData(
 				new Product
 				{
 					Id = new Guid("c1abc698-7149-49e2-b67f-e50f09d8e0c0"),
 					CategoryId = new Guid("fe702e57-9cb1-4c9f-8157-b0d19b1a7c03"),
-					SizeId = new Guid("f306c6f6-8a72-4c20-9031-2310cf8bf042"),
 					Name = "Áo phông chanh xả",
 					CostPrice = 50000,
 					Price = 100000,
 					Description = "Sang xịn mịn",
 					CreatedDate = DateTime.Now,
-					AvailableQuantity = 100,
 					Status = Status.Active,
 				},
 				new Product
 				{
 					Id = new Guid("ed884572-cdeb-46ad-a2b2-12297e9fd32a"),
 					CategoryId = new Guid("dcb0eb8d-d2a7-4849-bb94-47049486567f"),
-					SizeId = new Guid("af100821-2fd2-4d2d-a95e-04c772bceeb6"),
 					Name = "Áo top tank sẹc xi",
 					CostPrice = 20000,
 					Price = 50000,
 					Description = "Sang xịn mịn",
 					CreatedDate = DateTime.Now,
-					AvailableQuantity = 100,
 					Status = Status.Active,
 				},
 				new Product()
 				{
 					Id = new Guid("66bdf5a9-58b0-42b8-8508-c95e2518582a"),
 					CategoryId = new Guid("dcb0eb8d-d2a7-4849-bb94-47049486567f"),
-					SizeId = new Guid("af100821-2fd2-4d2d-a95e-04c772bceeb6"),
 					Name = "Áo T-shirt co dãn",
 					CostPrice = 20000,
 					Price = 50000,
 					Description = "Thoáng mát",
 					CreatedDate = DateTime.Now,
-					AvailableQuantity = 100,
 					Status = Status.Active,
 				});
 		}

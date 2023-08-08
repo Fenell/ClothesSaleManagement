@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClothesSaleManagement.Domain.Common
 {
-	public class BaseDomainEntity
+	public abstract class BaseDomainEntity
 	{
 		public Guid Id { get; set; }
-		
+
 	}
 }

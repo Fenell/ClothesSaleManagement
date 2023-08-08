@@ -1,0 +1,31 @@
+﻿@model List<ClothesSaleManagement.WebApp.Models.CategoryVM>
+@{
+    ViewData["Title"] = "Category Manager";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h1>Quản lý danh mục sản phẩm</h1>
+
+<h2>Danh sách danh mục</h2>
+<a class="btn btn-success mb-4" asp-controller="Category" asp-action="Create">Thêm mới</a>
+
+<table class="table">
+	<thead>
+	<tr>
+		<th scope="col">Tên</th>
+		<th scope="col">Thao tác</th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.Name</td>
+			<td>
+				<a class="btn btn-danger" asp-controller="Category" asp-action="Update" asp-route-id="@item.Id" >Sửa</a>
+				<a class="btn btn-dark">Xóa</a>
+			</td>
+		</tr>
+	}
+
+	</tbody>
+</table>

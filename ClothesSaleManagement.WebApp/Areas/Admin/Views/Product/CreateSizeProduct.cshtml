@@ -1,0 +1,48 @@
+﻿@model ClothesSaleManagement.WebApp.Models.ProductDetailVm
+
+@{
+    ViewData["Title"] = "CreateSizeProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Thêm size</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateSizeProduct" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	        <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Size" class="control-label"></label>
+	            <select class="form-select" aria-label="Default select example" asp-for="Size">
+		            <option selected>Open this select menu</option>
+		            <option value="S">S</option>
+		            <option value="M">M</option>
+		            <option value="L">L</option>
+		            <option value="XL">Xl</option>
+                    <option value="XXL">XXL</option>
+                    <option value="XXXL">XXXL</option>
+	            </select>
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display: none">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+	            <button type="submit"  class="btn btn-primary" >Thêm mới</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" >Quay lại</a>
+</div>
+
